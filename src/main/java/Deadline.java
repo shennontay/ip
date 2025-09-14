@@ -8,7 +8,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String getDescription() {
-        return (description + " (by: " + by + ")");
+    public String printTask() {
+        return ('[' + getTaskTypeLetter() + "] " + '[' + getStatusIcon() + "] " + getDescription() + " (by: " + by + ")");
     }
 }
