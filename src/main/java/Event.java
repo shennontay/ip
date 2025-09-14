@@ -10,7 +10,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String getDescription() {
-        return (description + " (from: " + from + " to: " + to + ")");
+    public String printTask() {
+        return ('[' + getTaskTypeLetter() + "] " + '[' + getStatusIcon() + "] " + getDescription() + " (from: " + from + " to: " + to + ")");
     }
 }

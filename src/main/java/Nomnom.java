@@ -22,38 +22,40 @@ public class Nomnom {
         while (!exit && scanner.hasNextLine()) {
             String input = scanner.nextLine();
             input = input.toLowerCase().trim();
-            String[] words = input.split(" ");
-            int taskIndex = input.indexOf(' ') + 1;
-            input = input.substring(taskIndex);
+            String[] words = input.split(" ", 2); // split into command + rest
 
             printLineBlank();
 
-            switch (words[0]) {
-            case "":
-                handleEmptyInput();
-                break;
-            case "list":
-                handleList();
-                break;
-            case "bye":
-                exit = true;
-                break;
-            case "mark", "unmark":
-                if (isValidMarkUnmark(words)) {
-                    handleMarkUnmark(words);
+            try {
+                switch (words[0]) {
+                case "":
+                    throw new EmptyInputException("whoopsies, you entered nothing!");
+                case "list":
+                    handleList();
+                    break;
+                case "bye":
+                    exit = true;
+                    break;
+                case "mark", "unmark":
+                    if (isValidMarkUnmark(words)) {
+                        handleMarkUnmark(words);
+                    }
+                    break;
+                case "todo":
+                    addToDo(words.length > 1 ? words[1] : "");
+                    break;
+                case "deadline":
+                    addDeadline(words.length > 1 ? words[1] : "");
+                    break;
+                case "event":
+                    addEvent(words.length > 1 ? words[1] : "");
+                    break;
+                default:
+                    throw new InvalidFormatException("nomnom doesn't understand that command. try: todo, deadline, event, list, mark, unmark, bye");
                 }
-                break;
-            case "todo":
-                addToDo(input);
-                break;
-            case "deadline":
-                addDeadline(input);
-                break;
-            case "event":
-                addEvent(input);
-                break;
-            default:
-                askForCorrectInput("none");
+            } catch (EmptyInputException | InvalidFormatException e) {
+                System.out.println(e.getMessage());
+                printLineBlank();
             }
 
         }
@@ -101,7 +103,15 @@ public class Nomnom {
 
 
     private static void addToDo(String input) {
-        Task newTask = new Task(input);
+        try {
+            if (input == null || input.trim().isEmpty()) {
+                throw new EmptyInputException("whoopsies, you didn't enter anything :(");
+            }
+        } catch (EmptyInputException e) {
+            System.out.println(e.getMessage());
+            printLineBlank();
+        }
+        Task newTask = new ToDo(input);
         tasks.add(newTask);
         tasks.get(tasks.size() - 1).printTask();
     }
@@ -114,20 +124,17 @@ public class Nomnom {
         printLineBlank();
     }
 
-    private static void handleEmptyInput() {
-        System.out.println("whoopsies, you entered nothing!");
-        printLineBlank();
-    }
 
     private static boolean isValidMarkUnmark(String[] parts) {
-        if  (parts.length != 2) {
-            System.out.println(INVALID_TASK_NUMBER_MSG);
-            return false;
+        try {
+            if (parts.length != 2) {
+                throw new InvalidTaskNumberException("enter a valid task number please!");
+            }
+        } catch (InvalidTaskNumberException e) {
+            System.out.println(e.getMessage());
+            printLineBlank();
         }
         int taskNum;
-        if (parts[0].equals("unmark") == parts[0].equals("mark")) {
-            return false;
-        }
         try {
             taskNum = Integer.parseInt(parts[1]);
         } catch (NumberFormatException e) {
