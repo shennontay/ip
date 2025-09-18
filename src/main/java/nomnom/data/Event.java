@@ -12,7 +12,7 @@ public class Event extends Task {
     }
 
     @Override
-    public String printTask() {
-        return ('[' + getTaskTypeLetter() + "] " + '[' + getStatusIcon() + "] " + getDescription() + " (from: " + from + " to: " + to + ")");
+    public void printTask() {
+        System.out.println('[' + getTaskTypeLetter() + "] " + '[' + getStatusIcon() + "] " + getDescription() + " (from: " + from + " to: " + to + ")");
     }
 }
