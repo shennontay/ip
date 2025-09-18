@@ -1,6 +1,11 @@
+package nomnom.ui;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+
+import nomnom.data.*;
+import nomnom.exceptions.*;
 
 public class Nomnom {
 
