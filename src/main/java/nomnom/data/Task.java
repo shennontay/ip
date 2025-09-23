@@ -10,10 +10,29 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
         totalTasks++;
-        System.out.println("Okay, I've added this task: ");
     }
 
     public abstract void printTask();
+
+    public abstract String toSaveFormat();
+
+    public static Task fromSavedFormat(String line) {
+        String[] parts = line.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        switch (type) {
+        case "T":
+            return new ToDo(description, isDone);
+        case "D":
+            return new Deadline(description, parts[3], isDone);
+        case "E":
+            return new Event(description, parts[3], parts[4], isDone);
+        default:
+            throw new IllegalArgumentException("Unknown task type: " + type);
+        }
+    }
 
     public boolean getStatus() {
         return this.isDone;
@@ -24,7 +43,8 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " "); // mark
+        // done task with X
     }
 
     public String getTaskTypeLetter() {
