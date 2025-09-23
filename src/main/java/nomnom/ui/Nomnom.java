@@ -1,5 +1,6 @@
 package nomnom.ui;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +19,19 @@ public class Nomnom {
              `--''--' `---' `--`--`--'`--''--' `---' `--`--`--'
             """;
 
-    private static final List<Task> tasks =
-            new ArrayList<>();
+    private static TaskList tasks;
+
     public static final String INVALID_TASK_NUMBER_MSG = "whoopsies, please enter a valid task number";
 
     public static void main(String[] args) {
         printIntro();
+        Storage storage = new Storage("data/nomnom.txt");
+        try {
+            tasks = new TaskList(storage.load()); // load tasks from file
+        } catch (IOException e) {
+            System.out.println("No save file found. Starting fresh...");
+            tasks = new TaskList();
+        }
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
         while (!exit && scanner.hasNextLine()) {
@@ -43,6 +51,11 @@ public class Nomnom {
                     handleList();
                     break;
                 case "bye":
+                    try {
+                        storage.save(tasks);
+                    } catch (IOException e) {
+                        System.out.println("Error saving tasks: " + e.getMessage());
+                    }
                     exit = true;
                     break;
                 case "mark", "unmark":
@@ -65,6 +78,9 @@ public class Nomnom {
                     if (hasValidTaskNumber(words)) {
                         deleteTask(words[1]);
                     }
+                    break;
+                case "clear":
+                    deleteAll(storage);
                     break;
                 default:
                     throw new InvalidFormatException("nomnom doesn't understand that command. try: todo, deadline, event, list, mark, unmark, bye");
@@ -92,6 +108,7 @@ public class Nomnom {
                         eventParts[1],
                         eventParts[2]);
         tasks.add(newEvent);
+        System.out.println("Okay, I've added this event: ");
         tasks.get(tasks.size() - 1).printTask();
         printLineBlank();
     }
@@ -131,6 +148,7 @@ public class Nomnom {
                 new Deadline(deadlineParts[0],
                         deadlineParts[1]);
         tasks.add(newDeadline);
+        System.out.println("Okay, I've added this deadline: ");
         tasks.get(tasks.size() - 1).printTask();
         printLineBlank();
     }
@@ -150,6 +168,7 @@ public class Nomnom {
         }
         Task newTask = new ToDo(input);
         tasks.add(newTask);
+        System.out.println("Okay, I've added this todo: ");
         tasks.get(tasks.size() - 1).printTask();
         printLineBlank();
     }
@@ -242,6 +261,21 @@ public class Nomnom {
         Task.totalTasks--;
     }
 
+    private static void deleteAll(Storage storage) {
+        tasks = new TaskList();
+        Task.totalTasks = 0;
+
+        System.out.println("Okay, I've cleared all your tasks!");
+        printLineBlank();
+
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            System.out.println("Error clearing tasks: " + e.getMessage());
+        }
+    }
+
+
     private static void printIntro() {
         printLineBlank();
         System.out.println(ASCII_NOMNOM);
@@ -262,4 +296,3 @@ public class Nomnom {
     }
 
 }
-
