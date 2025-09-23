@@ -7,8 +7,19 @@ public class ToDo extends Task {
         this.taskTypeLetter = "T";
     }
 
+    public ToDo(String description, boolean isDone) {
+        super(description);
+        this.isDone = isDone;
+        this.taskTypeLetter = "T";
+    }
+
     @Override
     public void printTask() {
         System.out.println('[' + getTaskTypeLetter() + "] " + '[' + getStatusIcon() + "] " + getDescription());
+    }
+
+    @Override
+    public String toSaveFormat() {
+        return taskTypeLetter + " | " + (isDone ? "1" : "0") + " | " + description;
     }
 }
