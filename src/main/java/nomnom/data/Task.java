@@ -10,9 +10,10 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
         totalTasks++;
+        System.out.println("Okay, I've added this task: ");
     }
 
-    public abstract String printTask();
+    public abstract void printTask();
 
     public boolean getStatus() {
         return this.isDone;
