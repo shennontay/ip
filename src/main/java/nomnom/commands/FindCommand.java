@@ -43,7 +43,7 @@ public class FindCommand extends Command{
         }
 
         if (returnMessage.isEmpty()) {
-            ui.printMessage("nomnom couldn't find any tasks containing: " + keyword + ":)");
+            ui.printMessage("nomnom couldn't find any tasks containing: " + keyword);
         } else {
             ui.printMessage("nomnom found these tasks containing: " + keyword);
             ui.printMessage(returnMessage);
