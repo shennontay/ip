@@ -1,13 +1,12 @@
 package nomnom.commands;
 
-import nomnom.data.Storage;
 import nomnom.data.Task;
 import nomnom.data.TaskList;
 import nomnom.data.ToDo;
+import nomnom.storage.Storage;
 import nomnom.ui.Ui;
 
 public class AddToDoCommand extends Command {
-
     private final String description;
 
     public AddToDoCommand(String description) {
@@ -17,17 +16,16 @@ public class AddToDoCommand extends Command {
     @Override
     public boolean execute(TaskList tasks, Storage storage, Ui ui) {
         if (description.isEmpty() || description.trim().isEmpty()) {
-            ui.showError("Invalid todo format: " + description);
+            ui.printError("\nnomnom doesn't recognise this todo format: " + description + "\ntry this: todo <description>");
             return false;
         }
+
         Task newTask = new ToDo(description);
         tasks.add(newTask);
+
         ui.printTaskAddedMessage();
-        ui.showTask(newTask);
+        ui.printTask(newTask);
         ui.printLineBlank();
         return false;
     }
-
-
-
 }

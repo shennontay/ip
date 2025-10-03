@@ -1,8 +1,8 @@
 package nomnom.commands;
 
-import nomnom.data.Storage;
 import nomnom.data.TaskList;
 import nomnom.exceptions.NomnomException;
+import nomnom.storage.Storage;
 import nomnom.ui.Ui;
 
 public class ExitCommand extends Command{
@@ -11,7 +11,7 @@ public class ExitCommand extends Command{
         try {
             storage.save(tasks);
         } catch (NomnomException e) {
-            ui.showError(e.getMessage());
+            ui.printError(e.getMessage());
         }
         return true;
     }

@@ -1,11 +1,10 @@
 package nomnom.commands;
 
-import nomnom.data.Storage;
 import nomnom.data.TaskList;
+import nomnom.storage.Storage;
 import nomnom.ui.Ui;
 
 public class DeleteTaskCommand extends Command{
-
     private final String taskNumString;
 
     public DeleteTaskCommand(String taskNumString) {
@@ -14,17 +13,16 @@ public class DeleteTaskCommand extends Command{
 
     @Override
     public boolean execute(TaskList tasks, Storage storage, Ui ui) {
-
         // check if task number is valid
         int taskNum = tasks.getTaskNumber(taskNumString);
         if (taskNum == -1) {
-            ui.showError("please feed nomnom a valid task number!");
+            ui.printError("\nplease feed nomnom a valid task number!");
             return false;
         }
 
         int taskIndex = taskNum - 1;
         ui.printDeletedMessage();
-        ui.showTask(tasks.get(taskIndex));
+        ui.printTask(tasks.get(taskIndex));
         ui.printLineBlank();
 
         // remove the task

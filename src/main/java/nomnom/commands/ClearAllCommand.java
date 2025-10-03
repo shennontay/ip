@@ -1,8 +1,8 @@
 package nomnom.commands;
 
-import nomnom.data.Storage;
 import nomnom.data.TaskList;
 import nomnom.exceptions.NomnomException;
+import nomnom.storage.Storage;
 import nomnom.ui.Ui;
 
 public class ClearAllCommand extends Command{
@@ -15,9 +15,8 @@ public class ClearAllCommand extends Command{
         try {
             storage.save(tasks);
         } catch (NomnomException e) {
-            ui.showError(e.getMessage());
+            ui.printError(e.getMessage());
         }
-
         return false;
     }
 }

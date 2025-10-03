@@ -19,10 +19,10 @@ public class Parser {
         case "clear": return new ClearAllCommand();
         case "find" : return new FindCommand(arguments);
         case "bye": return new ExitCommand();
-        default: return new InvalidCommand("Unknown command: " + commandWord);
+        case "help": return new DisplayHelpMenuCommand();
+        default: return new InvalidCommand("\nnomnom doesn't recognise this command: " + commandWord + "\nenter \"help\" to see valid commands");
         }
     }
-
 }
 
 

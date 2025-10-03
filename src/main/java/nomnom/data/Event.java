@@ -26,7 +26,6 @@ public class Event extends Task {
 
     @Override
     public String toSaveFormat() {
-        return taskTypeLetter + " | " + (isDone ? "1" : "0") + " | "
-                + description + " | " + from + " | " + to;
+        return taskTypeLetter + " | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
     }
 }

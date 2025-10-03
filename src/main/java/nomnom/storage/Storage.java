@@ -1,4 +1,4 @@
-package nomnom.data;
+package nomnom.storage;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import nomnom.data.Task;
+import nomnom.data.TaskList;
 import nomnom.exceptions.NomnomException;
-
 
 public class Storage {
     private final String filePath;
@@ -20,7 +21,6 @@ public class Storage {
     /**
      * Saves tasks into the file.
      */
-
     public void save(TaskList tasks) throws NomnomException {
         try (FileWriter fw = new FileWriter(filePath)) {
             for (Task task : tasks.getList()) {
@@ -34,7 +34,6 @@ public class Storage {
     /**
      * Loads tasks from the file, or create new file if there is no existing one.
      */
-
     public List<Task> load() throws NomnomException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -54,7 +53,6 @@ public class Storage {
         } catch (IOException e) {
             throw new NomnomException("error loading from file: " + filePath);
         }
-
         return tasks;
     }
 }

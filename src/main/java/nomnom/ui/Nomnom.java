@@ -1,9 +1,10 @@
 package nomnom.ui;
 
-import nomnom.data.*;
-import nomnom.exceptions.*;
+import nomnom.commands.Command;
+import nomnom.data.TaskList;
+import nomnom.exceptions.NomnomException;
 import nomnom.parser.Parser;
-import nomnom.commands.*;
+import nomnom.storage.Storage;
 
 public class Nomnom {
 
@@ -18,7 +19,7 @@ public class Nomnom {
         try {
             tempTasks = new TaskList(storage.load()); // load tasks from file
         } catch (NomnomException e) {
-            ui.showError(e.getMessage());
+            ui.printError(e.getMessage());
             tempTasks = new TaskList();
         }
         tasks = tempTasks;
@@ -26,12 +27,11 @@ public class Nomnom {
 
     public void run() {
         ui.printIntro();
-        boolean exit = false;
 
+        boolean exit = false;
         while (!exit) {
             String fullCommand = ui.readCommand();
             ui.printLineBlank();
-
             Command command = Parser.parse(fullCommand);
             if (command.execute(tasks, storage, ui)) {
                 exit = true;

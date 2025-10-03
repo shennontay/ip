@@ -4,16 +4,11 @@ import nomnom.data.TaskList;
 import nomnom.storage.Storage;
 import nomnom.ui.Ui;
 
-public class InvalidCommand extends Command{
-    private final String message;
-
-    public InvalidCommand(String message) {
-        this.message = message;
-    }
-
+public class DisplayHelpMenuCommand extends Command{
     @Override
     public boolean execute(TaskList tasks, Storage storage, Ui ui) {
-        ui.printError(message);
+        ui.printHelpMenu();
+        ui.printLineBlank();
         return false;
     }
 }
