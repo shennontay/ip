@@ -6,7 +6,7 @@ public class Parser {
     public static Command parse(String input) {
         String[] words = input.split(" ", 2);
         String commandWord = words[0];
-        String arguments = (words.length > 1) ? words[1] : "";
+        String arguments = (words.length > 1) ? words[1].trim() : "";
 
         switch (commandWord) {
         case "todo": return new AddToDoCommand(arguments);
@@ -17,6 +17,7 @@ public class Parser {
         case "unmark": return new UnmarkCommand(arguments);
         case "delete": return new DeleteTaskCommand(arguments);
         case "clear": return new ClearAllCommand();
+        case "find" : return new FindCommand(arguments);
         case "bye": return new ExitCommand();
         default: return new InvalidCommand("Unknown command: " + commandWord);
         }

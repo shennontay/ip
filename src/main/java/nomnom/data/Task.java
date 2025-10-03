@@ -1,5 +1,7 @@
 package nomnom.data;
 
+import java.time.LocalDate;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -26,7 +28,8 @@ public abstract class Task {
         case "T":
             return new ToDo(description, isDone);
         case "D":
-            return new Deadline(description, parts[3], isDone);
+            LocalDate by = LocalDate.parse(parts[3].trim());
+            return new Deadline(description, by, isDone);
         case "E":
             return new Event(description, parts[3], parts[4], isDone);
         default:

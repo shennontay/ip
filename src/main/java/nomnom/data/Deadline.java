@@ -1,15 +1,18 @@
 package nomnom.data;
 
-public class Deadline extends Task {
-    protected String by;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    public Deadline(String description, String by) {
+public class Deadline extends Task {
+    private LocalDate by;
+
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
         this.taskTypeLetter = "D";
     }
 
-    public Deadline(String description, String by, boolean isDone) {
+    public Deadline(String description, LocalDate by, boolean isDone) {
         super(description);
         this.by = by;
         this.isDone = isDone;
@@ -18,7 +21,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return ('[' + getTaskTypeLetter() + "] " + '[' + getStatusIcon() + "] " + getDescription() + " (by: " + by + ")");
+        return ("[" + getTaskTypeLetter() + "] " + "[" + getStatusIcon() + "] " + getDescription() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")");
     }
 
     @Override

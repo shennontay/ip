@@ -15,7 +15,7 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-        return ('[' + getTaskTypeLetter() + "] " + '[' + getStatusIcon() + "] " + getDescription());
+        return ("[" + getTaskTypeLetter() + "] " + "[" + getStatusIcon() + "] " + getDescription());
     }
 
     @Override

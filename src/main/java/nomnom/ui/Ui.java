@@ -26,7 +26,7 @@ public class Ui {
         System.out.println("something went wrong :0 " + message);
         printLineBlank();
     }
-\
+
     public void showTask(Task task) {
         System.out.println(task.toString());
     }
@@ -75,6 +75,14 @@ public class Ui {
 
     public String readCommand() {
         return scanner.nextLine().trim();
+    }
+
+    public void printMessage(String message) {
+        System.out.println(message);
+    }
+
+    public void printMessageSameLine(String message) {
+        System.out.print(message);
     }
 
 }
