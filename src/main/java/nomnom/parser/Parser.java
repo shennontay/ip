@@ -1,0 +1,27 @@
+package nomnom.parser;
+
+import nomnom.commands.*;
+
+public class Parser {
+    public static Command parse(String input) {
+        String[] words = input.split(" ", 2);
+        String commandWord = words[0];
+        String arguments = (words.length > 1) ? words[1] : "";
+
+        switch (commandWord) {
+        case "todo": return new AddToDoCommand(arguments);
+        case "deadline": return new AddDeadlineCommand(arguments);
+        case "event": return new AddEventCommand(arguments);
+        case "list": return new ListCommand();
+        case "mark": return new MarkCommand(arguments);
+        case "unmark": return new UnmarkCommand(arguments);
+        case "delete": return new DeleteTaskCommand(arguments);
+        case "clear": return new ClearAllCommand();
+        case "bye": return new ExitCommand();
+        default: return new InvalidCommand("Unknown command: " + commandWord);
+        }
+    }
+
+}
+
+

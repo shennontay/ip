@@ -14,8 +14,8 @@ public class ToDo extends Task {
     }
 
     @Override
-    public void printTask() {
-        System.out.println('[' + getTaskTypeLetter() + "] " + '[' + getStatusIcon() + "] " + getDescription());
+    public String toString() {
+        return ('[' + getTaskTypeLetter() + "] " + '[' + getStatusIcon() + "] " + getDescription());
     }
 
     @Override

@@ -34,4 +34,28 @@ public class TaskList {
         return tasks;
     }
 
+    public boolean isValidIndex(int index) {
+        if (index <= 0 || index > size()) {
+            return false;
+        }
+        return true;
+    }
+
+    public int getTaskNumber(String argument) {
+        try {
+            int index = Integer.parseInt(argument);
+            if (!isValidIndex(index)) {
+                return -1;
+            }
+            return index;
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    public void clear() {
+        tasks.clear();
+    }
+
+
 }

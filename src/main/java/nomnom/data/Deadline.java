@@ -17,8 +17,8 @@ public class Deadline extends Task {
     }
 
     @Override
-    public void printTask() {
-        System.out.println('[' + getTaskTypeLetter() + "] " + '[' + getStatusIcon() + "] " + getDescription() + " (by: " + by + ")");
+    public String toString() {
+        return ('[' + getTaskTypeLetter() + "] " + '[' + getStatusIcon() + "] " + getDescription() + " (by: " + by + ")");
     }
 
     @Override

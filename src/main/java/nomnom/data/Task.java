@@ -12,7 +12,7 @@ public abstract class Task {
         totalTasks++;
     }
 
-    public abstract void printTask();
+    public abstract String toString();
 
     public abstract String toSaveFormat();
 
