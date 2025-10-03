@@ -40,10 +40,20 @@ public class Storage {
 
         try {
             if (!file.exists()) {
-                file.getParentFile().mkdirs(); // create data folder if missing
-                file.createNewFile();
-                return tasks;
+                // create parent directories if missing
+                File parent = file.getParentFile();
+                if (parent != null && !parent.exists() && !parent.mkdirs()) {
+                    throw new NomnomException("failed to create directory: " + parent.getAbsolutePath());
+                }
+
+                // create new file
+                if (!file.createNewFile()) {
+                    throw new NomnomException("failed to create file: " + filePath);
+                }
+                return tasks; // return empty list since it's a new file
             }
+
+            // read tasks if file exists
             try (Scanner sc = new Scanner(file)) {
                 while (sc.hasNextLine()) {
                     String line = sc.nextLine();

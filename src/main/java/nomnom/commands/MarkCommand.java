@@ -5,13 +5,32 @@ import nomnom.data.TaskList;
 import nomnom.storage.Storage;
 import nomnom.ui.Ui;
 
+/**
+ * Marks a task as done in the task list.
+ * Format: mark <task number>
+ */
 public class MarkCommand extends Command{
+    /** The task number provided by the user as a string. */
     private final String taskNumString;
 
+    /**
+     * Creates a new MarkCommand.
+     *
+     * @param taskNumString the task number as entered by the user
+     */
     public MarkCommand(String taskNumString) {
         this.taskNumString = taskNumString;
     }
 
+    /**
+     * Marks the specified task as done.
+     * If the task number is invalid, shows an error instead.
+     *
+     * @param tasks   the current task list
+     * @param storage the storage to save tasks
+     * @param ui      the user interface
+     * @return false (does not exit the program)
+     */
     @Override
     public boolean execute(TaskList tasks, Storage storage, Ui ui) {
         //check if task number is valid
