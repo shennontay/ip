@@ -6,7 +6,7 @@ Nomnom is a simple chatbot that helps you manage tasks like todos, deadlines, an
 
 ## User Guide
 See the full User Guide here:  
-[Nomnom User Guide](https://<shennontay>.github.io/ip/)
+[Nomnom User Guide]([https://<shennontay>.github.io/ip/](https://github.com/shennontay/ip/blob/master/docs/README.md))
 
 ---
 
@@ -17,7 +17,7 @@ See the full User Guide here:
 - IntelliJ IDEA
 
 ### Run the program
-1. Download the latest `nomnom.jar` from the [Releases](https://github.com/<shennontay>/ip/releases).
+1. Download the latest `nomnom.jar` from the [Releases]([https://github.com/<shennontay>/ip/releases](https://github.com/shennontay/ip/releases/tag/v0.2)).
 2. Open a terminal in the folder containing the jar.
 3. Run: java -jar nomnom.jar
 
