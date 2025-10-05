@@ -32,7 +32,7 @@ public class DeleteTaskCommand extends Command{
      */
     @Override
     public boolean execute(TaskList tasks, Storage storage, Ui ui) {
-        // check if task number is valid
+        // check if the task number is valid
         int taskNum = tasks.getTaskNumber(taskNumString);
         if (taskNum == -1) {
             ui.printError("\nplease feed nomnom a valid task number!");
